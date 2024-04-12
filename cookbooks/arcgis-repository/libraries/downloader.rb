@@ -19,7 +19,7 @@ module Downloader
 
   # Downloads file from the specified URL to a local path.
   def self.download(url, path)
-    URI.open(url) { |download|
+    URI.parse(url).open { |download|
       IO.copy_stream(download, path)
     }
   end
