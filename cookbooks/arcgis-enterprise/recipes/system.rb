@@ -108,7 +108,7 @@ else
 
   # Remove comment from #/net in /etc/auto.master
   file "/etc/auto.master" do
-    content lazy { IO.read("/etc/auto.master").gsub("#/net", "/net") }
+    content lazy { File.read("/etc/auto.master").gsub("#/net", "/net") }
     only_if { node['arcgis']['configure_autofs'] }
   end
 
@@ -121,7 +121,7 @@ else
   end
 
   file '/home/' + node['arcgis']['run_as_user'] + '/.ssh/authorized_keys' do
-    content lazy { IO.read(node['arcgis']['run_as_user_auth_keys']) }
+    content lazy { File.read(node['arcgis']['run_as_user_auth_keys']) }
     mode '0660'
     owner node['arcgis']['run_as_user']
     group node['arcgis']['run_as_user']
